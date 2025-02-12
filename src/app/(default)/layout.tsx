@@ -15,11 +15,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 							Do Leetcode with Elo ranking strategy
 						</h2>
 						<h3 className='text-md text-muted-foreground'>
-							Powered by <Link href='https://tanstack.com/table'>tanstack table</Link> and{' '}
-							<Link href='https://ui.shadcn.com'>shadcn ui</Link> with controls and{' '}
-							<Link href='http://cmdk.paco.me/'>cmdk</Link> using search params via{' '}
-							<Link href='https://nuqs.47ng.com'>nuqs</Link>, also shout out to{' '}
-							<Link href='https://github.com/openstatusHQ/data-table-filters'>openstatus</Link>
+							shoutout to <Link href='https://www.youtube.com/@jamesperaltaSWE'>James Peralta</Link>
+							, <Link href='https://github.com/zerotrac/leetcode_problem_rating'>zerotrack</Link>,{' '}
+							<Link href='https://github.com/openstatusHQ/data-table-filters'>openstatus</Link>,{' '}
+							<Link href='https://ui.shadcn.com'>shadcn ui</Link>,{' '}
+							<Link href='https://tanstack.com/table'>tanstack table</Link>
 						</h3>
 					</div>
 					<Separator />

@@ -46,6 +46,7 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 			const href = 'https://leetcode.com/problems/' + slug;
 			return (
 				<a
+					id='title-problem'
 					className='text-blue-500 visited:text-purple-500 hover:text-pink-500'
 					href={href}
 					target={'_blank'}

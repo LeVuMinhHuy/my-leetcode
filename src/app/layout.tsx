@@ -41,11 +41,6 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en' suppressHydrationWarning>
-			{process.env.NODE_ENV === 'development' ? (
-				<head>
-					<script src='https://unpkg.com/react-scan/dist/auto.global.js' async />
-				</head>
-			) : null}
 			<body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
 				<PlausibleProvider domain='data-table.openstatus.dev'>
 					<ReactQueryProvider>

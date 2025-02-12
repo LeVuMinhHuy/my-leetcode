@@ -3,13 +3,20 @@
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 import { isArrayOfNumbers } from '@/lib/is-array';
 import type { ColumnDef } from '@tanstack/react-table';
-import type { ColumnSchema } from './schema';
+import { ProblemStatus, type ColumnSchema } from './schema';
+import { Badge } from '@/components/ui/badge';
+import { tagsColor } from './constants';
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export const columns: ColumnDef<ColumnSchema>[] = [
 	{
 		accessorKey: 'id',
 		header: 'Id',
-		enableHiding: false,
 	},
 	{
 		accessorKey: 'rating',
@@ -36,6 +43,7 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 			}
 			return false;
 		},
+		enableHiding: false,
 	},
 	{
 		accessorKey: 'title',
@@ -58,6 +66,7 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 			const rowValue = row.getValue(id);
 			return value === String(rowValue);
 		},
+		enableHiding: false,
 	},
 
 	//{

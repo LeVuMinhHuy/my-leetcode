@@ -2,7 +2,7 @@ import { ColumnSchema } from '@/app/(default)/schema';
 import { SLUG_DELIMITER } from '@/lib/delimiters';
 
 export const processRatingData = (data: string): ColumnSchema[] => {
-	return data
+	const updatedData = data
 		.trim()
 		.split('\n')
 		.map((line) => {
@@ -21,4 +21,12 @@ export const processRatingData = (data: string): ColumnSchema[] => {
 			};
 		})
 		.filter((entry) => !isNaN(entry.id) && !isNaN(entry.rating)) satisfies ColumnSchema[];
+
+	// shuffle the data
+	for (let i = updatedData.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[updatedData[i], updatedData[j]] = [updatedData[j], updatedData[i]];
+	}
+
+	return updatedData;
 };

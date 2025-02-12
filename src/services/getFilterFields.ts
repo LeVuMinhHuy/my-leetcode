@@ -1,0 +1,57 @@
+import { ColumnSchema } from '@/app/(default)/schema';
+import { DataTableFilterField } from '@/components/data-table/types';
+
+export const getFilterFields = (data: ColumnSchema[]): DataTableFilterField<ColumnSchema>[] => {
+	const filterFields = [
+		//{
+		//	label: 'Time Range',
+		//	value: 'date',
+		//	type: 'timerange',
+		//	defaultOpen: true,
+		//	commandDisabled: true,
+		//},
+		{
+			label: 'Title',
+			value: 'title',
+			type: 'input',
+			options: data.map(({ title }) => ({ label: title, value: title })),
+			defaultOpen: true,
+		},
+		{
+			label: 'Rating',
+			value: 'rating',
+			type: 'slider',
+			min: 0,
+			max: 3000,
+			options: data.map(({ rating }) => ({ label: `${rating}`, value: rating })),
+			defaultOpen: true,
+		},
+		{
+			label: 'Contest',
+			value: 'contestTitle',
+			type: 'input',
+			options: data.map(({ title }) => ({ label: title, value: title })),
+			defaultOpen: true,
+		},
+		//{
+		//	label: 'Tags',
+		//	value: 'tags',
+		//	type: 'checkbox',
+		//	defaultOpen: true,
+		//	// REMINDER: "use client" needs to be declared in the file - otherwise getting serialization error from Server Component
+		//	component: (props: Option) => {
+		//		if (typeof props.value === 'boolean') return null;
+		//		if (typeof props.value === 'undefined') return null;
+		//		return (
+		//			<div className='flex w-full items-center justify-between gap-2'>
+		//				<span className='truncate font-normal'>{props.value}</span>
+		//				<span className={cn('h-2 w-2 rounded-full', tagsColor[props.value].dot)} />
+		//			</div>
+		//		);
+		//	},
+		//	options: TAGS.map((tag) => ({ label: tag, value: tag })),
+		//},
+	] satisfies DataTableFilterField<ColumnSchema>[];
+
+	return filterFields;
+};

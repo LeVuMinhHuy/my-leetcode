@@ -9,6 +9,10 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 	{
 		accessorKey: 'id',
 		header: 'Id',
+		filterFn: (row, id, value) => {
+			const rowValue = row.getValue(id) as number;
+			return value === Number(rowValue);
+		},
 	},
 	{
 		accessorKey: 'rating',

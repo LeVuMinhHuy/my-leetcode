@@ -11,6 +11,13 @@ export const getFilterFields = (data: ColumnSchema[]): DataTableFilterField<Colu
 		//	commandDisabled: true,
 		//},
 		{
+			label: 'Id',
+			value: 'id',
+			type: 'input',
+			options: data.map(({ id }) => ({ label: `${id}`, value: id })),
+			defaultOpen: true,
+		},
+		{
 			label: 'Title',
 			value: 'title',
 			type: 'input',

@@ -33,13 +33,6 @@ export const getFilterFields = (data: ColumnSchema[]): DataTableFilterField<Colu
 			options: data.map(({ rating }) => ({ label: `${rating}`, value: rating })),
 			defaultOpen: true,
 		},
-		{
-			label: 'Contest',
-			value: 'contestTitle',
-			type: 'input',
-			options: data.map(({ title }) => ({ label: title, value: title })),
-			defaultOpen: true,
-		},
 		//{
 		//	label: 'Tags',
 		//	value: 'tags',

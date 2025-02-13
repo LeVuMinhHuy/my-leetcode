@@ -11,7 +11,7 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 		header: 'Id',
 		filterFn: (row, id, value) => {
 			const rowValue = row.getValue(id) as number;
-			return value === Number(rowValue);
+			return Number(value) === Number(rowValue);
 		},
 	},
 	{
@@ -61,7 +61,11 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 		},
 		filterFn: (row, id, value) => {
 			const rowValue = row.getValue(id);
-			return value === String(rowValue);
+			if (value) {
+				return String(rowValue).toLowerCase().includes(value.toLowerCase());
+			}
+
+			return false;
 		},
 		enableHiding: false,
 	},

@@ -19,8 +19,8 @@ import { useCallback } from 'react';
 export function DataTableStatus({ id, value }: { id: number; value: Status }) {
 	const router = useRouter();
 
-	const onChangeStatus = useCallback((status: Status) => {
-		updateProblem(id, { status });
+	const onChangeStatus = useCallback(async (status: Status) => {
+		await updateProblem(id, { status });
 		router.refresh();
 	}, []);
 

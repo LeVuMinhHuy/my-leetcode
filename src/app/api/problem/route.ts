@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 			{
 				$set: {
 					status,
-					date: date || new Date().toISOString().split('T')[0],
+					date: date || new Date(),
 					tags: tags || [],
 					favorite: favorite ?? false,
 					attempts: attempts ?? 0,

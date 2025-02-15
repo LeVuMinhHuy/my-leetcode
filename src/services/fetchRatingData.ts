@@ -25,6 +25,7 @@ export const fetchRatingData = async (): Promise<ColumnSchema[]> => {
 							...problem,
 							status: existingProblem?.status ?? Status.TODO,
 							tags: existingProblem?.tags ?? [],
+							date: existingProblem?.date ?? '',
 							favorite: existingProblem?.favorite ?? false,
 							attempts: existingProblem?.attempts ?? 0,
 						},

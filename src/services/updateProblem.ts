@@ -10,7 +10,7 @@ export const updateProblem = async (
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({
 			id,
-			...(updateDate && { date: new Date().toISOString().split('T')[0] }),
+			...(updateDate && { date: new Date() }),
 			...updates,
 		}),
 	});

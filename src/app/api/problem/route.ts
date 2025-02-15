@@ -1,5 +1,4 @@
 import { DB_COLLECTION } from '@/constants/database';
-import { Status } from '@/constants/problem-model';
 import { connectDB, getDb } from '@/lib/mongodb';
 import { NextResponse } from 'next/server';
 
@@ -9,8 +8,8 @@ export async function POST(req: Request) {
 
 		const { id, status, date, tags, favorite, attempts } = await req.json();
 
-		if (!id || !Object.values(Status).includes(status)) {
-			return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
+		if (!id) {
+			return NextResponse.json({ error: 'Where is the id bro ?' }, { status: 400 });
 		}
 
 		const db = await getDb();

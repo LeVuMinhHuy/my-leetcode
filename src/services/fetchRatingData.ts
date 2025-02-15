@@ -17,16 +17,16 @@ export const fetchRatingData = async (): Promise<ColumnSchema[]> => {
 
 		await Promise.all(
 			processedData.map(async (problem) => {
+				const existingProblem = await collection.findOne({ id: problem.id });
 				await collection.updateOne(
 					{ id: problem.id },
 					{
 						$set: {
 							...problem,
-							status: Status.TODO,
-							date: new Date().toISOString().split('T')[0],
-							tags: [],
-							favorite: false,
-							attempts: 0,
+							status: existingProblem?.status ?? Status.TODO,
+							tags: existingProblem?.tags ?? [],
+							favorite: existingProblem?.favorite ?? false,
+							attempts: existingProblem?.attempts ?? 0,
 						},
 					},
 					{ upsert: true }

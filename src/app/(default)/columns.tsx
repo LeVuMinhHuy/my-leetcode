@@ -1,22 +1,14 @@
 'use client';
 
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
+import { DataTableStatus } from '@/components/data-table/data-table-status';
 import { Status } from '@/constants/problem-model';
-import { isArrayOfNumbers } from '@/lib/is-array';
-import { updateProblem } from '@/services/updateProblem';
+import { isArrayOfDates, isArrayOfNumbers } from '@/lib/is-array';
 import type { ColumnDef } from '@tanstack/react-table';
 import { type ColumnSchema } from './schema';
-import { Badge } from '@/components/ui/badge';
-import { statusColor } from './constants';
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { DataTableStatus } from '@/components/data-table/data-table-status';
+import { formatDate } from '@/lib/format';
+import { isSameDay } from 'date-fns';
+import { DataTableFavorite } from '@/components/data-table/data-table-favorite';
 
 export const columns: ColumnDef<ColumnSchema>[] = [
 	{
@@ -94,6 +86,50 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 			return array.includes(value);
 		},
 	},
+	{
+		accessorKey: 'date',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='Date' />,
+		cell: ({ row }) => {
+			const value = row.getValue('date') as Status;
+			if (!value) return <></>;
+			return (
+				<span className='text-md text-muted-foreground' suppressHydrationWarning>
+					{formatDate(value)}
+				</span>
+			);
+		},
+		filterFn: (row, id, value) => {
+			const dataValue = row.getValue(id);
+			if (!dataValue) return false;
+			const rowValue = new Date(dataValue as string);
+
+			if (value instanceof Date && rowValue instanceof Date) {
+				return isSameDay(value, rowValue);
+			}
+			if (Array.isArray(value)) {
+				if (isArrayOfDates(value) && rowValue instanceof Date) {
+					const sorted = value.sort((a, b) => a.getTime() - b.getTime());
+					return (
+						sorted[0]?.getTime() <= rowValue.getTime() && rowValue.getTime() <= sorted[1]?.getTime()
+					);
+				}
+			}
+			return false;
+		},
+	},
+	{
+		accessorKey: 'favorite',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='Knowledge' />,
+		cell: ({ row }) => {
+			const value = row.getValue('favorite') as boolean;
+			return <DataTableFavorite id={row.original.id} favorite={value} />;
+		},
+		filterFn: (row, id, value) => {
+			const dataValue = row.getValue(id);
+			return dataValue === value;
+		},
+	},
+
 	//{
 	//	accessorKey: 'tags',
 	//	header: 'Tags',

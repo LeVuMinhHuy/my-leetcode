@@ -82,8 +82,8 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 			return <DataTableStatus id={row.original.id} value={value} />;
 		},
 		filterFn: (row, id, value) => {
-			const array = row.getValue(id) as string[];
-			return array.includes(value);
+			const rowValue = row.getValue(id);
+			return value.includes(rowValue);
 		},
 	},
 	{

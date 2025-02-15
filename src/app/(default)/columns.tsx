@@ -83,7 +83,10 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 		},
 		filterFn: (row, id, value) => {
 			const rowValue = row.getValue(id);
-			return value.includes(rowValue);
+			if (value) {
+				return value.includes(rowValue);
+			}
+			return false;
 		},
 	},
 	{

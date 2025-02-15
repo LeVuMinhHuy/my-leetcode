@@ -31,7 +31,7 @@ export const getFilterFields = (data: ColumnSchema[]): DataTableFilterField<Colu
 			label: 'Status',
 			value: 'status',
 			type: 'checkbox',
-			options: Object.values(Status).map((status) => ({ label: status, value: status })),
+			options: Object.values(Status).map((status) => ({ label: `${status}`, value: status })),
 			defaultOpen: true,
 		},
 		{

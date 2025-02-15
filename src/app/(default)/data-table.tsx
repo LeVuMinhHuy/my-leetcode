@@ -69,18 +69,6 @@ export function DataTable<TData, TValue>({
 	);
 	const [_, setSearch] = useQueryStates(searchParamsParser);
 
-	const handleSort = React.useCallback((rowA: Row<number>, rowB: Row<number>, columnId: string) => {
-		const sortFn = (a: RowData, b: RowData) => {
-			const valueA = (a as any)[columnId] as string;
-			const valueB = (b as any)[columnId] as string;
-			if (valueA === valueB) return 0;
-			if (valueA === null || valueA === undefined) return 1;
-			if (valueB === null || valueB === undefined) return -1;
-			return valueA > valueB ? 1 : -1;
-		};
-		return sortFn(rowA, rowB);
-	}, []);
-
 	const table = useReactTable({
 		data,
 		columns,

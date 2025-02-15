@@ -1,4 +1,4 @@
-import { ColumnSchema } from '@/app/(default)/schema';
+import { type ColumnSchema } from '@/app/(default)/schema';
 import { DataTableFilterField } from '@/components/data-table/types';
 
 export const getFilterFields = (data: ColumnSchema[]): DataTableFilterField<ColumnSchema>[] => {

@@ -1,4 +1,5 @@
-import { ColumnSchema } from '@/app/(default)/schema';
+import { type ColumnSchema } from '@/app/(default)/schema';
+import { IProblem } from '@/constants/problem-model';
 import { SLUG_DELIMITER } from '@/lib/delimiters';
 
 export const processRatingData = (data: string): ColumnSchema[] => {
@@ -29,4 +30,20 @@ export const processRatingData = (data: string): ColumnSchema[] => {
 	}
 
 	return updatedData;
+};
+
+export const processDatabaseData = (data: IProblem[]): ColumnSchema[] => {
+	return data.map((entry) => ({
+		rating: entry.rating,
+		id: entry.id,
+		title: entry.title,
+		titleSlug: entry.titleSlug,
+		contestSlug: entry.contestSlug,
+		contestTitle: entry.contestTitle,
+		problemIndex: entry.problemIndex,
+		status: entry.status,
+		date: entry.date,
+		tags: entry.tags,
+		favorite: entry.favorite,
+	}));
 };

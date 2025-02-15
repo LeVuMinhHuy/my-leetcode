@@ -1,72 +1,70 @@
-import { DataTableFilterField } from "@/components/data-table/types";
-import type {
-  ColumnDef,
-  ColumnFiltersState,
-  RowSelectionState,
-  SortingState,
-  Table,
-  VisibilityState,
-} from "@tanstack/react-table";
-import { createContext, useContext, useMemo } from "react";
-import { ControlsProvider } from "./controls";
+import { DataTableFilterField } from '@/components/data-table/types';
+import {
+	useReactTable,
+	type ColumnDef,
+	type ColumnFiltersState,
+	type RowSelectionState,
+	type SortingState,
+	type Table,
+	type VisibilityState,
+} from '@tanstack/react-table';
+import { createContext, useCallback, useContext, useMemo } from 'react';
+import { ControlsProvider } from './controls';
 
 // REMINDER: read about how to move controlled state out of the useReactTable hook
 // https://github.com/TanStack/table/discussions/4005#discussioncomment-7303569
 
 interface DataTableContextType<TData = unknown, TValue = unknown> {
-  table: Table<TData>;
-  filterFields: DataTableFilterField<TData>[];
-  columns: ColumnDef<TData, TValue>[];
-  enableColumnOrdering: boolean;
-  isLoading?: boolean;
-  // REMINDER: controlled state, allowing to rerender the component on state changes
-  columnFilters: ColumnFiltersState;
-  sorting: SortingState;
-  rowSelection: RowSelectionState;
-  columnOrder: string[];
-  columnVisibility: VisibilityState;
+	table: Table<TData>;
+	filterFields: DataTableFilterField<TData>[];
+	columns: ColumnDef<TData, TValue>[];
+	enableColumnOrdering: boolean;
+	isLoading?: boolean;
+	// REMINDER: controlled state, allowing to rerender the component on state changes
+	columnFilters: ColumnFiltersState;
+	sorting: SortingState;
+	rowSelection: RowSelectionState;
+	columnOrder: string[];
+	columnVisibility: VisibilityState;
 }
 
-export const DataTableContext = createContext<DataTableContextType<
-  any,
-  any
-> | null>(null);
+export const DataTableContext = createContext<DataTableContextType<any, any> | null>(null);
 
 export function DataTableProvider<TData, TValue>({
-  children,
-  ...props
+	children,
+	...props
 }: DataTableContextType<TData, TValue> & {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  const value = useMemo(
-    () => ({ ...props }),
-    [
-      props.columnFilters,
-      props.sorting,
-      props.rowSelection,
-      props.columnOrder,
-      props.columnVisibility,
-      props.table,
-      props.filterFields,
-      props.columns,
-      props.enableColumnOrdering,
-      props.isLoading,
-    ]
-  );
+	const value = useMemo(
+		() => ({ ...props }),
+		[
+			props.columnFilters,
+			props.sorting,
+			props.rowSelection,
+			props.columnOrder,
+			props.columnVisibility,
+			props.table,
+			props.filterFields,
+			props.columns,
+			props.enableColumnOrdering,
+			props.isLoading,
+		]
+	);
 
-  return (
-    <DataTableContext.Provider value={value}>
-      <ControlsProvider>{children}</ControlsProvider>
-    </DataTableContext.Provider>
-  );
+	return (
+		<DataTableContext.Provider value={value}>
+			<ControlsProvider>{children}</ControlsProvider>
+		</DataTableContext.Provider>
+	);
 }
 
 export function useDataTable<TData, TValue>() {
-  const context = useContext(DataTableContext);
+	const context = useContext(DataTableContext);
 
-  if (!context) {
-    throw new Error("useDataTable must be used within a DataTableProvider");
-  }
+	if (!context) {
+		throw new Error('useDataTable must be used within a DataTableProvider');
+	}
 
-  return context as DataTableContextType<TData, TValue>;
+	return context as DataTableContextType<TData, TValue>;
 }

@@ -1,9 +1,9 @@
-import { fetchRatingData } from '@/services/fetchRatingData';
 import { columns } from './columns';
 import { DataTable } from './data-table';
 import { searchParamsCache } from './search-params';
 import { Skeleton } from './skeleton';
 
+import { fetchProblem } from '@/services/fetchProblem';
 import { getFilterFields } from '@/services/getFilterFields';
 import * as React from 'react';
 
@@ -13,7 +13,7 @@ export default async function Page({
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
 	const search = searchParamsCache.parse(await searchParams);
-	const data = await fetchRatingData();
+	const data = await fetchProblem();
 	const filterFields = getFilterFields(data);
 
 	return (

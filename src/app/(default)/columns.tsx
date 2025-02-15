@@ -1,9 +1,22 @@
 'use client';
 
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
+import { Status } from '@/constants/problem-model';
 import { isArrayOfNumbers } from '@/lib/is-array';
+import { updateProblem } from '@/services/updateProblem';
 import type { ColumnDef } from '@tanstack/react-table';
 import { type ColumnSchema } from './schema';
+import { Badge } from '@/components/ui/badge';
+import { statusColor } from './constants';
+import {
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { DataTableStatus } from '@/components/data-table/data-table-status';
 
 export const columns: ColumnDef<ColumnSchema>[] = [
 	{
@@ -22,7 +35,7 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 
 			return (
 				<div>
-					<span className='font-mono'>{`${value.toFixed(2)}`}</span>
+					<span className='font-mono'>{`${value.toFixed(0)}`}</span>
 				</div>
 			);
 		},
@@ -69,7 +82,18 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 		},
 		enableHiding: false,
 	},
-
+	{
+		accessorKey: 'status',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='Status' />,
+		cell: ({ row }) => {
+			const value = row.getValue('status') as Status;
+			return <DataTableStatus id={row.original.id} value={value} />;
+		},
+		filterFn: (row, id, value) => {
+			const array = row.getValue(id) as string[];
+			return array.includes(value);
+		},
+	},
 	//{
 	//	accessorKey: 'tags',
 	//	header: 'Tags',
@@ -96,24 +120,24 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 	//		return false;
 	//	},
 	//},
-	{
-		accessorKey: 'contestTitle',
-		header: 'Contest',
-		cell: ({ row }) => {
-			const slug = row.original.contestSlug as string;
-			const title = row.getValue('contestTitle') as string;
-			const href = 'https://leetcode.com/contest/' + slug;
-			return (
-				<a className='visited:text-purple-500 hover:text-pink-500' href={href} target={'_blank'}>
-					{title}
-				</a>
-			);
-		},
-		filterFn: (row, id, value) => {
-			const rowValue = row.getValue(id);
-			return value === String(rowValue);
-		},
-	},
+	//{
+	//	accessorKey: 'contestTitle',
+	//	header: 'Contest',
+	//	cell: ({ row }) => {
+	//		const slug = row.original.contestSlug as string;
+	//		const title = row.getValue('contestTitle') as string;
+	//		const href = 'https://leetcode.com/contest/' + slug;
+	//		return (
+	//			<a className='visited:text-purple-500 hover:text-pink-500' href={href} target={'_blank'}>
+	//				{title}
+	//			</a>
+	//		);
+	//	},
+	//	filterFn: (row, id, value) => {
+	//		const rowValue = row.getValue(id);
+	//		return value === String(rowValue);
+	//	},
+	//},
 	{
 		accessorKey: 'problemIndex',
 		header: 'Problem',

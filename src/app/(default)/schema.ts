@@ -23,8 +23,11 @@ export const columnSchema = z.object({
 	contestSlug: z.string().optional(),
 	contestTitle: z.string(),
 	problemIndex: z.string(),
-	tags: z.string().optional(),
+	tags: z.array(z.string()).optional(),
 	date: z.string().optional(),
+	favorite: z.boolean().optional(),
+	attempts: z.number().optional(),
+	status: z.string().optional(),
 });
 
 export type ColumnSchema = z.infer<typeof columnSchema>;
@@ -46,6 +49,9 @@ export const columnFilterSchema = z.object({
 		.transform((val) => val.split(RANGE_DELIMITER).map(Number))
 		.pipe(z.coerce.date().array())
 		.optional(),
+	favorite: z.boolean().optional(),
+	attempts: z.number().optional(),
+	status: z.string().optional(),
 });
 
 export type ColumnFilterSchema = z.infer<typeof columnFilterSchema>;

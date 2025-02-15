@@ -19,11 +19,11 @@ export async function POST(req: Request) {
 			{ id },
 			{
 				$set: {
-					status,
-					date: date || new Date(),
-					tags: tags || [],
-					favorite: favorite ?? false,
-					attempts: attempts ?? 0,
+					...(status && { status }),
+					...(date && { date }),
+					...(tags && { tags }),
+					...(favorite && { favorite }),
+					...(attempts && { attempts }),
 				},
 			}
 		);

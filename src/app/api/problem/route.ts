@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 					...(status && { status }),
 					...(date && { date }),
 					...(tags && { tags }),
-					...(favorite && { favorite }),
+					...((favorite === true || favorite === false) && { favorite }),
 					...(attempts && { attempts }),
 				},
 			}

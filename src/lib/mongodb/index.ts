@@ -4,8 +4,6 @@ import _mongoose, { connect } from 'mongoose';
 const uri: string | undefined = process.env.MONGODB_URI;
 const options: MongoClientOptions = {};
 
-console.log({ uri });
-
 if (!uri) {
 	throw new Error('Please add your Mongo URI to .env.local');
 }
@@ -79,6 +77,5 @@ export const connectDB = async () => {
 
 export const getDb = async () => {
 	const client = await clientPromise;
-	console.log({ client });
 	return client.db();
 };

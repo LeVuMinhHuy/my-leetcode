@@ -13,15 +13,22 @@ import {
 import { Status } from '@/constants/problem-model';
 import { cn } from '@/lib/utils';
 import { updateProblem } from '@/services/updateProblem';
-import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function DataTableStatus({ id, value }: { id: number; value: Status }) {
-	const router = useRouter();
+	const [isClient, setIsClient] = useState(false);
+
+	useEffect(() => {
+		setIsClient(typeof window !== 'undefined');
+	}, []);
+
+	const handleReload = () => {
+		if (isClient) window.location.reload();
+	};
 
 	const onChangeStatus = useCallback((status: Status) => {
 		updateProblem(id, { status });
-		router.refresh();
+		handleReload();
 	}, []);
 
 	return (

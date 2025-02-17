@@ -13,25 +13,30 @@ import {
 import { Status } from '@/constants/problem-model';
 import { cn } from '@/lib/utils';
 import { updateProblem } from '@/services/updateProblem';
-import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 export function DataTableStatus({ id, value }: { id: number; value: Status }) {
-	const router = useRouter();
+	const [currentStatus, setCurrentStatus] = useState(value);
 
-	const onChangeStatus = useCallback(async (status: Status) => {
-		await updateProblem(id, { status });
-		router.refresh();
-	}, []);
+	const onChangeStatus = useCallback(
+		(status: Status) => {
+			updateProblem(id, { status });
+			setCurrentStatus(status);
+		},
+		[currentStatus]
+	);
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				{value === Status.TODO ? (
+				{currentStatus === Status.TODO ? (
 					<div className={cn('w-4 h-4 rounded-full cursor-pointer ml-4')} />
 				) : (
 					<div
-						className={cn('w-2 h-2 rounded-full cursor-pointer ml-4', statusColor[value]?.dot)}
+						className={cn(
+							'w-2 h-2 rounded-full cursor-pointer ml-4',
+							statusColor[currentStatus]?.dot
+						)}
 					/>
 				)}
 			</DropdownMenuTrigger>
@@ -42,7 +47,7 @@ export function DataTableStatus({ id, value }: { id: number; value: Status }) {
 					{Object.values(Status).map((status) => (
 						<DropdownMenuCheckboxItem
 							key={status}
-							checked={status === value}
+							checked={status === currentStatus}
 							onClick={() => onChangeStatus(status)}
 							className={statusColor[status]?.color}
 						>

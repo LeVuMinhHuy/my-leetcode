@@ -14,14 +14,22 @@ import { Status } from '@/constants/problem-model';
 import { cn } from '@/lib/utils';
 import { updateProblem } from '@/services/updateProblem';
 import { useCallback, useState } from 'react';
+import { toast } from 'sonner';
 
 export function DataTableStatus({ id, value }: { id: number; value: Status }) {
 	const [currentStatus, setCurrentStatus] = useState(value);
 
 	const onChangeStatus = useCallback(
-		(status: Status) => {
-			updateProblem(id, { status });
+		async (status: Status) => {
 			setCurrentStatus(status);
+			const res = await updateProblem(id, { status });
+
+			if (res) {
+				toast.success('Status updated');
+			} else {
+				setCurrentStatus(value);
+				toast.error('Failed to update status');
+			}
 		},
 		[currentStatus]
 	);

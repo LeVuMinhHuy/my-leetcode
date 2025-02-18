@@ -3,13 +3,21 @@
 import { updateProblem } from '@/services/updateProblem';
 import { Star } from 'lucide-react';
 import { useCallback, useState } from 'react';
+import { toast } from 'sonner';
 
 export function DataTableFavorite({ id, favorite }: { id: number; favorite: boolean }) {
 	const [fav, setFav] = useState(favorite);
 
-	const onChangeFavorite = useCallback(() => {
-		updateProblem(id, { favorite: !fav }, false);
+	const onChangeFavorite = useCallback(async () => {
 		setFav(!fav);
+		const res = await updateProblem(id, { favorite: !fav }, false);
+
+		if (res) {
+			toast.success('Knowledge updated');
+		} else {
+			setFav(fav);
+			toast.error('Failed to update knowledge');
+		}
 	}, [fav]);
 
 	return (

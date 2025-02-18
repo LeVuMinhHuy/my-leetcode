@@ -42,22 +42,14 @@ export const getFilterFields = (data: ColumnSchema[]): DataTableFilterField<Colu
 			commandDisabled: true,
 		},
 		//{
-		//	label: 'Tags',
-		//	value: 'tags',
-		//	type: 'checkbox',
+		//	label: 'Topics',
+		//	value: 'topics',
+		//	type: 'input',
 		//	defaultOpen: true,
-		//	// REMINDER: "use client" needs to be declared in the file - otherwise getting serialization error from Server Component
-		//	component: (props: Option) => {
-		//		if (typeof props.value === 'boolean') return null;
-		//		if (typeof props.value === 'undefined') return null;
-		//		return (
-		//			<div className='flex w-full items-center justify-between gap-2'>
-		//				<span className='truncate font-normal'>{props.value}</span>
-		//				<span className={cn('h-2 w-2 rounded-full', tagsColor[props.value].dot)} />
-		//			</div>
-		//		);
-		//	},
-		//	options: TAGS.map((tag) => ({ label: tag, value: tag })),
+		//	options: data.map(({ topics }) => ({
+		//		label: topics?.join(', ') || '',
+		//		value: topics?.join(', ') || '',
+		//	})),
 		//},
 	] satisfies DataTableFilterField<ColumnSchema>[];
 

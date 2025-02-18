@@ -20,4 +20,53 @@ export interface IProblem {
 	tags: string[];
 	favorite: boolean;
 	attempts: number;
+	likes?: number;
+	dislikes?: number;
+	likeRatio?: number;
+	topics?: string[];
+	difficulty?: string;
+	accepted?: number;
+	submissions?: number;
+	acceptRate?: number;
+	free?: boolean;
+	solution?: boolean;
+	videoSolution?: boolean;
+	category?: string;
+	llmPrompt?: string;
 }
+
+export interface IProblemAdditonalData {
+	id: number;
+	problemName: string;
+	likes: number;
+	dislikes: number;
+	likeRatio: number;
+	topics: string[];
+	difficulty: string;
+	accepted: number;
+	submissions: number;
+	acceptRate: number;
+	free: boolean;
+	solution: boolean;
+	videoSolution: boolean;
+	category: string;
+	llmPrompt: string;
+}
+
+export type LeetCodeCSV = {
+	ID: string;
+	'Problem Name': string;
+	Likes: string;
+	Dislikes: string;
+	'Like Ratio': string;
+	Topics: string;
+	Difficulty: string;
+	Accepted: string;
+	Submissions: string;
+	'Accept Rate': string;
+	'Free?': string;
+	'Solution?': string;
+	'Video Solution?': string;
+	Category: string;
+	'LLM Prompt': string;
+};

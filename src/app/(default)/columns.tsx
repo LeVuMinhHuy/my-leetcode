@@ -75,6 +75,14 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 		enableHiding: false,
 	},
 	{
+		accessorKey: 'likeRatio',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='Like' />,
+		cell: ({ row }) => {
+			const value = row.getValue('likeRatio') as Status;
+			return <span className='text-md text-muted-foreground'>{value}%</span>;
+		},
+	},
+	{
 		accessorKey: 'status',
 		header: ({ column }) => <DataTableColumnHeader column={column} title='Status' />,
 		cell: ({ row }) => {

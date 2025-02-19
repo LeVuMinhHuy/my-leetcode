@@ -18,7 +18,7 @@ const TITLE = "Ted's Leetcode board";
 const DESCRIPTION = 'Do Leetcode by elo ranking';
 
 export const metadata: Metadata = {
-	metadataBase: new URL('https://tedvu.me'),
+	metadataBase: new URL('https://tedcode.vercel.app'),
 	title: TITLE,
 	description: DESCRIPTION,
 	twitter: {

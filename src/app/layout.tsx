@@ -7,6 +7,7 @@ import PlausibleProvider from 'next-plausible';
 import { ReactQueryProvider } from '@/providers/react-query';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Toaster } from '@/components/ui/sonner';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const fontSans = FontSans({
 	subsets: ['latin'],
@@ -21,14 +22,14 @@ export const metadata: Metadata = {
 	title: TITLE,
 	description: DESCRIPTION,
 	twitter: {
-		images: ['/assets/data-table-infinite.png'],
+		images: ['/assets/table.png'],
 		card: 'summary_large_image',
 		title: TITLE,
 		description: DESCRIPTION,
 	},
 	openGraph: {
 		type: 'website',
-		images: ['/assets/data-table-infinite.png'],
+		images: ['/assets/table.png'],
 		title: TITLE,
 		description: DESCRIPTION,
 	},
@@ -52,6 +53,8 @@ export default function RootLayout({
 						</NuqsAdapter>
 					</ReactQueryProvider>
 				</PlausibleProvider>
+
+				<SpeedInsights />
 			</body>
 		</html>
 	);

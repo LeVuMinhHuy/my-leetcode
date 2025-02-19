@@ -2,13 +2,14 @@ import { type ColumnSchema } from '@/app/(default)/schema';
 import { ZEROTRACK_RATINGS_DATA } from '@/constants/data-source';
 import { DB_COLLECTION } from '@/constants/database';
 import { IProblem, Status } from '@/constants/problem-model';
-import { getDb } from '@/lib/mongodb';
 import { processRatingData } from './processRatingData';
 import { WithId } from 'mongodb';
+import clientPromise from '@/lib/mongodb';
 
 export const fetchRatingData = async (): Promise<ColumnSchema[]> => {
 	try {
-		const db = await getDb();
+		const client = await clientPromise;
+		const db = client.db();
 		const collection = db.collection<IProblem>(DB_COLLECTION);
 
 		const response = await fetch(ZEROTRACK_RATINGS_DATA);

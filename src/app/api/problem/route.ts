@@ -1,10 +1,10 @@
 import { DB_COLLECTION } from '@/constants/database';
-import { connectDB, getDb } from '@/lib/mongodb';
+import clientPromise from '@/lib/mongodb';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
 	try {
-		await connectDB();
+		const client = await clientPromise;
 
 		const { id, status, date, tags, favorite, attempts } = await req.json();
 
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 			return NextResponse.json({ error: 'Where is the id bro ?' }, { status: 400 });
 		}
 
-		const db = await getDb();
+		const db = client.db();
 		const collection = db.collection(DB_COLLECTION);
 
 		await collection.updateOne(

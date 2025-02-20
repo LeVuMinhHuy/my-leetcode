@@ -8,6 +8,7 @@ import { ReactQueryProvider } from '@/providers/react-query';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Toaster } from '@/components/ui/sonner';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 
 const fontSans = FontSans({
 	subsets: ['latin'],
@@ -55,6 +56,7 @@ export default function RootLayout({
 				</PlausibleProvider>
 
 				<SpeedInsights />
+				<Analytics />
 			</body>
 		</html>
 	);

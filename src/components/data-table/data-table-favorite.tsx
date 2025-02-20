@@ -5,7 +5,7 @@ import { Star } from 'lucide-react';
 import { useCallback, useState } from 'react';
 import { toast } from 'sonner';
 
-export function DataTableFavorite({ id, favorite }: { id: number; favorite: boolean }) {
+export function DataTableFavorite({ id, favorite }: { id: string; favorite: boolean }) {
 	const [fav, setFav] = useState(favorite);
 
 	const onChangeFavorite = useCallback(async () => {

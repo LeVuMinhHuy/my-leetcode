@@ -38,7 +38,7 @@ export const getFilterFields = (data: ColumnSchema[]): DataTableFilterField<Colu
 			label: 'Time Range',
 			value: 'date',
 			type: 'timerange',
-			defaultOpen: true,
+			defaultOpen: false,
 			commandDisabled: true,
 		},
 		//{

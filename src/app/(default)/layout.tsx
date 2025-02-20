@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { SocialsFooter } from '@/components/layout/socials-footer';
 import { Link } from '@/components/custom/link';
+import HabitBoard from '@/components/custom/habit-board';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (

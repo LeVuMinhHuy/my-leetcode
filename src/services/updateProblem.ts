@@ -1,7 +1,7 @@
 import { IProblem } from '@/constants/problem-model';
 
 export const updateProblem = async (
-	id: number,
+	id: string,
 	updates: Partial<IProblem>,
 	updateDate: boolean = true
 ): Promise<boolean> => {

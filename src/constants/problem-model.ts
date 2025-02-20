@@ -8,7 +8,7 @@ export enum Status {
 
 export interface IProblem {
 	_id?: ObjectId;
-	id: number;
+	id: string;
 	rating: number;
 	title: string;
 	titleSlug: string;
@@ -36,7 +36,7 @@ export interface IProblem {
 }
 
 export interface IProblemAdditonalData {
-	id: number;
+	id: string;
 	problemName: string;
 	likes: number;
 	dislikes: number;

@@ -4,8 +4,6 @@ import type {
 	ColumnDef,
 	ColumnFiltersState,
 	PaginationState,
-	Row,
-	RowData,
 	SortingState,
 	Table as TTable,
 	VisibilityState,
@@ -13,6 +11,7 @@ import type {
 import {
 	flexRender,
 	getCoreRowModel,
+	getFacetedMinMaxValues,
 	getFacetedRowModel,
 	getFacetedUniqueValues,
 	getFilteredRowModel,
@@ -61,7 +60,7 @@ export function DataTable<TData, TValue>({
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [pagination, setPagination] = React.useState<PaginationState>({
 		pageIndex: 0,
-		pageSize: 20,
+		pageSize: 30,
 	});
 	const [columnVisibility, setColumnVisibility] = useLocalStorage<VisibilityState>(
 		'data-table-visibility',
@@ -82,6 +81,7 @@ export function DataTable<TData, TValue>({
 		getFilteredRowModel: getFilteredRowModel(),
 		getFacetedRowModel: getFacetedRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
+		getFacetedMinMaxValues: getFacetedMinMaxValues(),
 		// REMINDER: it doesn't support array of strings (WARNING: might not work for other types)
 		getFacetedUniqueValues: (table: TTable<TData>, columnId: string) => () => {
 			const facets = getFacetedUniqueValues<TData>()(table, columnId)();

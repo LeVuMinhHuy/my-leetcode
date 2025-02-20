@@ -15,10 +15,6 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 	{
 		accessorKey: 'id',
 		header: 'Id',
-		filterFn: (row, id, value) => {
-			const rowValue = row.getValue(id) as number;
-			return Number(value) === Number(rowValue);
-		},
 	},
 	{
 		accessorKey: 'rating',
@@ -28,7 +24,7 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 
 			return (
 				<div>
-					<span className='font-mono'>{`${value.toFixed(0)}`}</span>
+					<span className='font-mono'>{`${value}`}</span>
 				</div>
 			);
 		},
@@ -64,13 +60,6 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 					{title}
 				</a>
 			);
-		},
-		filterFn: (row, id, value) => {
-			const rowValue = row.getValue(id);
-			if (value) {
-				return String(rowValue).toLowerCase().includes(value.toLowerCase());
-			}
-			return false;
 		},
 		enableHiding: false,
 	},
@@ -110,16 +99,14 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 			);
 		},
 		filterFn: (row, id, value) => {
-			const dataValue = row.getValue(id);
-			if (!dataValue) return false;
-			const rowValue = new Date(dataValue as string);
-
+			const rowValue = row.getValue(id);
 			if (value instanceof Date && rowValue instanceof Date) {
 				return isSameDay(value, rowValue);
 			}
 			if (Array.isArray(value)) {
 				if (isArrayOfDates(value) && rowValue instanceof Date) {
 					const sorted = value.sort((a, b) => a.getTime() - b.getTime());
+					// TODO: check length
 					return (
 						sorted[0]?.getTime() <= rowValue.getTime() && rowValue.getTime() <= sorted[1]?.getTime()
 					);

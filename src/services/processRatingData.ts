@@ -14,8 +14,8 @@ export const processRatingData = async (data: string): Promise<ColumnSchema[]> =
 			const [rating, id, title, _titleZH, titleSlug, contestSlug, problemIndex] = line.split('\t');
 
 			return {
-				rating: parseFloat(rating),
-				id: parseInt(id),
+				rating: Math.round(parseFloat(rating)),
+				id: id,
 				title,
 				titleSlug,
 				contestSlug,
@@ -26,7 +26,7 @@ export const processRatingData = async (data: string): Promise<ColumnSchema[]> =
 				problemIndex,
 			};
 		})
-		.filter((entry) => !isNaN(entry.id) && !isNaN(entry.rating)) satisfies ColumnSchema[];
+		.filter((entry) => !Number.isNaN(entry.id) && !isNaN(entry.rating)) satisfies ColumnSchema[];
 
 	// polulate additional data
 	const populatedData = await getProblemAdditionalData(updatedData);
@@ -43,7 +43,7 @@ export const processRatingData = async (data: string): Promise<ColumnSchema[]> =
 export const processDatabaseData = (data: IProblem[]): ColumnSchema[] => {
 	return data.map((entry) => ({
 		rating: entry.rating,
-		id: entry.id,
+		id: entry.id.toString(),
 		title: entry.title,
 		titleSlug: entry.titleSlug,
 		contestSlug: entry.contestSlug,
@@ -74,9 +74,9 @@ const getProblemAdditionalData = async (problems: ColumnSchema[]): Promise<IProb
 	const filePath = path.resolve(process.cwd(), MY_LOCAL_CSV);
 	const data = await readCSV(filePath);
 
-	const problemMap = new Map<number, LeetCodeCSV>();
+	const problemMap = new Map<string, LeetCodeCSV>();
 	data.forEach((problem) => {
-		problemMap.set(parseInt(problem.ID), problem);
+		problemMap.set(problem.ID, problem);
 	});
 
 	const result = problems.map((problem) => {

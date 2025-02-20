@@ -3,7 +3,7 @@ import { ARRAY_DELIMITER, RANGE_DELIMITER } from '@/lib/delimiters';
 import { z } from 'zod';
 
 export const columnSchema = z.object({
-	id: z.number(),
+	id: z.string(),
 	rating: z.number(),
 	title: z.string(),
 	titleSlug: z.string().optional(),
@@ -33,7 +33,7 @@ export const columnSchema = z.object({
 export type ColumnSchema = z.infer<typeof columnSchema>;
 
 export const columnFilterSchema = z.object({
-	id: z.number().optional(),
+	id: z.string().optional(),
 	rating: z.number().optional(),
 	title: z.string().optional(),
 	titleSlug: z.string().optional(),

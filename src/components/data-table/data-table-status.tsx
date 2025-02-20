@@ -16,7 +16,7 @@ import { updateProblem } from '@/services/updateProblem';
 import { useCallback, useState } from 'react';
 import { toast } from 'sonner';
 
-export function DataTableStatus({ id, value }: { id: number; value: Status }) {
+export function DataTableStatus({ id, value }: { id: string; value: Status }) {
 	const [currentStatus, setCurrentStatus] = useState(value);
 
 	const onChangeStatus = useCallback(

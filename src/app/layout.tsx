@@ -44,7 +44,7 @@ export default function RootLayout({
 	return (
 		<html lang='en' suppressHydrationWarning>
 			<body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
-				<PlausibleProvider domain='data-table.openstatus.dev'>
+				<PlausibleProvider domain='tedcode.vercel.app'>
 					<ReactQueryProvider>
 						<NuqsAdapter>
 							<ThemeProvider attribute='class' defaultTheme='system' enableSystem>

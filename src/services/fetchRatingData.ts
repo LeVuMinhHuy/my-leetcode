@@ -48,13 +48,11 @@ const initData = (existingProblem: WithId<IProblem> | null, problem: ColumnSchem
 	return {
 		...problem,
 		status: existingProblem?.status ?? Status.TODO,
-		tags: existingProblem?.tags ?? [],
 		date: existingProblem?.date ?? '',
 		favorite: existingProblem?.favorite ?? false,
 		attempts: existingProblem?.attempts ?? 0,
 		// ===
 		//status: problem.status ?? Status.TODO,
-		//tags: problem.tags ?? [],
 		//date: problem.date ?? '',
 		//favorite: problem.favorite ?? false,
 		//attempts: problem.attempts ?? 0,
@@ -78,7 +76,6 @@ const updateData = (existingProblem: WithId<IProblem> | null, problem: ColumnSch
 	return {
 		...problem,
 		status: existingProblem?.status ?? Status.TODO,
-		tags: existingProblem?.tags ?? [],
 		date: existingProblem?.date ?? '',
 		favorite: existingProblem?.favorite ?? false,
 		attempts: existingProblem?.attempts ?? 0,

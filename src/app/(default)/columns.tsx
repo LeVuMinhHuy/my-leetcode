@@ -99,7 +99,8 @@ export const columns: ColumnDef<ColumnSchema>[] = [
 			);
 		},
 		filterFn: (row, id, value) => {
-			const rowValue = row.getValue(id);
+			const rowValue = new Date(row.getValue(id));
+
 			if (value instanceof Date && rowValue instanceof Date) {
 				return isSameDay(value, rowValue);
 			}

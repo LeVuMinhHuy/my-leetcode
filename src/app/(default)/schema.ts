@@ -1,4 +1,3 @@
-import { TAGS } from '@/constants/tag';
 import { ARRAY_DELIMITER, RANGE_DELIMITER } from '@/lib/delimiters';
 import { z } from 'zod';
 
@@ -10,7 +9,6 @@ export const columnSchema = z.object({
 	contestSlug: z.string().optional(),
 	contestTitle: z.string(),
 	problemIndex: z.string(),
-	tags: z.array(z.string()).optional(),
 	date: z.string().optional(),
 	favorite: z.boolean().optional(),
 	attempts: z.number().optional(),
@@ -39,11 +37,6 @@ export const columnFilterSchema = z.object({
 	titleSlug: z.string().optional(),
 	contestSlug: z.string().optional(),
 	contestTitle: z.string().optional(),
-	tags: z
-		.string()
-		.transform((val) => val.split(ARRAY_DELIMITER))
-		.pipe(z.enum(TAGS).array())
-		.optional(),
 	date: z
 		.string()
 		.transform((val) => val.split(RANGE_DELIMITER).map(Number))

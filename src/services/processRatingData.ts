@@ -51,7 +51,6 @@ export const processDatabaseData = (data: IProblem[]): ColumnSchema[] => {
 		problemIndex: entry.problemIndex,
 		status: entry.status,
 		date: entry.date,
-		tags: entry.tags,
 		favorite: entry.favorite,
 		attempts: entry.attempts,
 		likes: entry.likes,

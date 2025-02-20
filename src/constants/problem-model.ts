@@ -17,7 +17,6 @@ export interface IProblem {
 	problemIndex: string;
 	status: Status;
 	date: string; // e.g., "Yesterday", "2 days ago", "DD-MM-YYYY"
-	tags: string[];
 	favorite: boolean;
 	attempts: number;
 	likes?: number;

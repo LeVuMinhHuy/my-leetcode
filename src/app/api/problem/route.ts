@@ -6,7 +6,7 @@ export async function POST(req: Request) {
 	try {
 		const client = await clientPromise;
 
-		const { id, status, date, tags, favorite, attempts } = await req.json();
+		const { id, status, date, favorite, attempts } = await req.json();
 
 		if (!id) {
 			return NextResponse.json({ error: 'Where is the id bro ?' }, { status: 400 });
@@ -21,7 +21,6 @@ export async function POST(req: Request) {
 				$set: {
 					...(status && { status }),
 					...(date && { date }),
-					...(tags && { tags }),
 					...((favorite === true || favorite === false) && { favorite }),
 					...(attempts && { attempts }),
 				},

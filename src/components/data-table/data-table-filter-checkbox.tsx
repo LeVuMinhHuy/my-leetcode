@@ -9,7 +9,6 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useDataTable } from '@/providers/data-table';
-import { ARRAY_DELIMITER } from '@/lib/delimiters';
 
 export function DataTableFilterCheckbox<TData>({
 	value: _value,
@@ -34,13 +33,7 @@ export function DataTableFilterCheckbox<TData>({
 	);
 
 	// CHECK: it could be filterValue or searchValue
-	const filters = filterValue
-		? Array.isArray(filterValue)
-			? filterValue
-			: (filterValue as string).includes(ARRAY_DELIMITER)
-			? (filterValue as string).split(ARRAY_DELIMITER)
-			: [filterValue]
-		: [];
+	const filters = filterValue ? (Array.isArray(filterValue) ? filterValue : [filterValue]) : [];
 
 	return (
 		<div className='grid gap-2'>

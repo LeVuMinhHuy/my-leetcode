@@ -1,9 +1,8 @@
-import * as React from 'react';
+import { Link } from '@/components/custom/link';
+import { SocialsFooter } from '@/components/layout/socials-footer';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { SocialsFooter } from '@/components/layout/socials-footer';
-import { Link } from '@/components/custom/link';
-import HabitBoard from '@/components/custom/habit-board';
+import * as React from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
@@ -26,7 +25,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 						</h3>
 					</div>
 					<Separator />
-					{children}
 					<Badge
 						variant='outline'
 						className='absolute -top-2.5 pt-1 left-4 bg-background sm:left-8'

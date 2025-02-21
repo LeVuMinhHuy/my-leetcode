@@ -15,8 +15,8 @@ export async function POST(req: Request) {
 		const db = client.db();
 		const collection = db.collection(DB_COLLECTION);
 
-		await collection.updateOne(
-			{ id },
+		const result = await collection.updateOne(
+			{ id: +id },
 			{
 				$set: {
 					...(status && { status }),

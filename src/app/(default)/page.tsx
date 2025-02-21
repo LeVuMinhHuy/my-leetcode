@@ -15,11 +15,14 @@ export default async function Page({
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
 	const search = searchParamsCache.parse(await searchParams);
-	const data = await fetchProblem();
-	const filterFields = getFilterFields(data);
-	const habits = data
-		.filter((d) => d.date && (d.status === Status.DONE || d.status === Status.WIP))
-		.map((d) => new Date(d.date as string));
+	//const data = await fetchProblem();
+	//const filterFields = getFilterFields(data);
+	//const habits = data
+	//	.filter((d) => d.date && (d.status === Status.DONE || d.status === Status.WIP))
+	//	.map((d) => new Date(d.date as string));
+	const data: any = [];
+	const filterFields: any = [];
+	const habits: any = [];
 
 	return (
 		<div className='flex flex-col gap-8 w-full'>

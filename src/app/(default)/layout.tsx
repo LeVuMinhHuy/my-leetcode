@@ -25,6 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 						</h3>
 					</div>
 					<Separator />
+					{children}
 					<Badge
 						variant='outline'
 						className='absolute -top-2.5 pt-1 left-4 bg-background sm:left-8'

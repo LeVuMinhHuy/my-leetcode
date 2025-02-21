@@ -1,13 +1,12 @@
-import type { Metadata } from 'next';
-import { Inter as FontSans } from 'next/font/google';
+import { ThemeProvider } from '@/components/theme/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
-import { ThemeProvider } from '@/components/theme/theme-provider';
-import { ReactQueryProvider } from '@/providers/react-query';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import { Toaster } from '@/components/ui/sonner';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import type { Metadata } from 'next';
+import { Inter as FontSans } from 'next/font/google';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 const fontSans = FontSans({
 	subsets: ['latin'],
@@ -43,14 +42,12 @@ export default function RootLayout({
 	return (
 		<html lang='en' suppressHydrationWarning>
 			<body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
-				<ReactQueryProvider>
-					<NuqsAdapter>
-						<ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-							{children}
-							<Toaster richColors />
-						</ThemeProvider>
-					</NuqsAdapter>
-				</ReactQueryProvider>
+				<NuqsAdapter>
+					<ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+						{children}
+						<Toaster richColors />
+					</ThemeProvider>
+				</NuqsAdapter>
 
 				<SpeedInsights />
 				<Analytics />

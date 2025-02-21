@@ -3,7 +3,6 @@ import { Inter as FontSans } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
 import { ThemeProvider } from '@/components/theme/theme-provider';
-import PlausibleProvider from 'next-plausible';
 import { ReactQueryProvider } from '@/providers/react-query';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Toaster } from '@/components/ui/sonner';
@@ -44,16 +43,14 @@ export default function RootLayout({
 	return (
 		<html lang='en' suppressHydrationWarning>
 			<body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
-				<PlausibleProvider domain='tedcode.vercel.app'>
-					<ReactQueryProvider>
-						<NuqsAdapter>
-							<ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-								{children}
-								<Toaster richColors />
-							</ThemeProvider>
-						</NuqsAdapter>
-					</ReactQueryProvider>
-				</PlausibleProvider>
+				<ReactQueryProvider>
+					<NuqsAdapter>
+						<ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+							{children}
+							<Toaster richColors />
+						</ThemeProvider>
+					</NuqsAdapter>
+				</ReactQueryProvider>
 
 				<SpeedInsights />
 				<Analytics />

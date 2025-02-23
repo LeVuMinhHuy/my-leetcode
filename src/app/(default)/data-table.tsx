@@ -110,6 +110,11 @@ export function DataTable<TData, TValue>({
 
 		const search = columnFiltersWithNullable.reduce((prev, curr) => {
 			prev[curr.id as string] = curr.value;
+
+			if (curr.id === 'status' && !Array.isArray(curr.value)) {
+				prev[curr.id as string] = [curr.value];
+			}
+
 			return prev;
 		}, {} as Record<string, unknown>);
 

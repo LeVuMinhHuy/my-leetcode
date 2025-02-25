@@ -144,7 +144,7 @@ const HabitBoard: React.FC<HabitBoardProps> = ({
 															<TooltipContent>
 																<p>
 																	{dateStr}: {problemCount}{' '}
-																	{problemCount === 1 ? 'problem' : 'problems'}
+																	{problemCount === 1 ? 'submission' : 'submissions'}
 																</p>
 															</TooltipContent>
 														</Tooltip>

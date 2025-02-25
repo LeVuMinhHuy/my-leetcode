@@ -3,7 +3,7 @@ import HabitBoard, { HabitBoardProps } from '@/components/custom/habit-board';
 async function getHabits(): Promise<HabitBoardProps> {
 	// Determine the base URL based on the environment
 	const isDev = process.env.NODE_ENV === 'development';
-	const apiUrl = isDev ? 'http://localhost:3000/api/habit' : '/api/habit';
+	const apiUrl = isDev ? 'http://localhost:3000/api/habit' : 'https://tedcode.vercel.app/api/habit';
 
 	const response = await fetch(apiUrl, { cache: 'no-store' });
 	if (!response.ok) {

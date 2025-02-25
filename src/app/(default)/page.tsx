@@ -24,13 +24,27 @@ export default async function Page({
 	//	.filter((d) => d.date && (d.status === Status.DONE || d.status === Status.WIP))
 	//	.map((d) => new Date(d.date as string));
 
-	const { dates: dateStrings, year, streak, totalActiveDays } = await getHabits();
+	const { dates: dateStrings, year, streak, totalSolved, totalQuestions } = await getHabits();
 	// Convert date strings back to Date objects
+	//
+	console.log({
+		dateStrings,
+		year,
+		streak,
+		totalSolved,
+		totalQuestions,
+	});
 	const dates = dateStrings.map((dateStr) => new Date(dateStr));
 
 	return (
 		<div className='flex flex-col gap-8 w-full'>
-			<HabitBoard dates={dates} year={year} streak={streak} totalActiveDays={totalActiveDays} />
+			<HabitBoard
+				dates={dates}
+				year={year}
+				streak={streak}
+				totalSolved={totalSolved}
+				totalQuestions={totalQuestions}
+			/>
 
 			{/*
 			<React.Suspense fallback={<Skeleton />}>

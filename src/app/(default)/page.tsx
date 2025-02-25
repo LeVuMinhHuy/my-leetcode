@@ -27,7 +27,6 @@ export default async function Page({
 	const { dates: dateStrings, year, streak, totalActiveDays } = await getHabits();
 	// Convert date strings back to Date objects
 	const dates = dateStrings.map((dateStr) => new Date(dateStr));
-	console.log({ streak, totalActiveDays });
 
 	return (
 		<div className='flex flex-col gap-8 w-full'>

@@ -75,6 +75,7 @@ const getMonthWeeks = (month: number, year: number) => {
 };
 
 // HabitBoard component
+// HabitBoard component
 const HabitBoard: React.FC<HabitBoardProps> = ({
 	dates,
 	year,
@@ -86,70 +87,81 @@ const HabitBoard: React.FC<HabitBoardProps> = ({
 	const months = Array.from({ length: 12 }, (_, i) => i); // 0 = Jan, 11 = Dec
 
 	return (
-		<Card className='p-2 md:p-4 w-full overflow-x-auto border-none'>
-			<div className='flex gap-8 mb-8'>
-				<span className='text-orange-700 font-medium'>Streak: {streak} </span>
+		<Card className='p-2 md:p-4 w-full border-none'>
+			<div className='flex flex-col gap-2 sm:flex-row sm:gap-8 mb-8'>
+				<span className='text-orange-700 font-medium flex items-center'>
+					<div
+						className={`w-2 h-2 rounded-full mr-2 ${
+							streak > 0 ? 'bg-orange-400 animate-pulse' : 'bg-gray-400'
+						}`}
+					/>
+					Streak:{' '}
+					<span
+						className={`font-semibold ml-1 ${streak > 0 ? 'text-orange-700' : 'text-gray-600'}`}
+					>
+						{streak}
+					</span>
+				</span>
 				<span className='text-green-700 font-medium'>
-					Total solved: {`${totalSolved} / ${totalQuestions}`}
+					Total solved: <span className='text-green-800 font-semibold'>{totalSolved}</span>{' '}
+					<span className='text-green-700 font-medium'>{`(over ${totalQuestions})`}</span>{' '}
 				</span>
 			</div>
+
 			<CardContent className='p-0'>
 				<TooltipProvider>
-					{/* Container with horizontal scroll for mobile */}
-					<div className='min-w-[900px] md:min-w-0 flex flex-col gap-4'>
-						{/* Boards for each month */}
-						<div className='flex gap-6'>
-							{months.map((month) => {
-								const weeks = getMonthWeeks(month, year);
-								return (
-									<div key={month} className='flex flex-col items-center'>
-										{/* Grid: 7 rows (Mon-Sun), columns = weeks */}
-										<div
-											className='grid grid-rows-7 gap-y-1 gap-x-4 xs:gap-y-[6px] xs:gap-x-[6px]' // 8px gap for rows and columns
-											style={{
-												gridTemplateColumns: `repeat(${weeks.length}, minmax(0, 1fr))`,
-											}}
-										>
-											{Array.from({ length: 7 }, (_, rowIndex) => (
-												<React.Fragment key={rowIndex}>
-													{weeks.map((week, weekIndex) => {
-														const date = week[rowIndex]; // Row 0 = Mon, Row 6 = Sun
-														if (!date) {
-															return <div key={weekIndex} className='w-3 h-3' />;
-														}
-														const dateStr = formatDateStr(date);
-														const problemCount = problemCountMap.get(dateStr) || 0;
-														const colorClass = getColorClass(problemCount);
+					{/* Container with grid layout for months */}
+					<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-12 gap-6'>
+						{months.map((month) => {
+							const weeks = getMonthWeeks(month, year);
+							return (
+								<div key={month} className='flex flex-col items-center'>
+									{/* Grid: 7 rows (Mon-Sun), columns = weeks */}
+									<div
+										className='grid grid-rows-7 gap-y-1 gap-x-4 xs:gap-y-[6px] xs:gap-x-[6px]' // 8px gap for rows and columns
+										style={{
+											gridTemplateColumns: `repeat(${weeks.length}, minmax(0, 1fr))`,
+										}}
+									>
+										{Array.from({ length: 7 }, (_, rowIndex) => (
+											<React.Fragment key={rowIndex}>
+												{weeks.map((week, weekIndex) => {
+													const date = week[rowIndex]; // Row 0 = Mon, Row 6 = Sun
+													if (!date) {
+														return <div key={weekIndex} className='w-3 h-3' />;
+													}
+													const dateStr = formatDateStr(date);
+													const problemCount = problemCountMap.get(dateStr) || 0;
+													const colorClass = getColorClass(problemCount);
 
-														return (
-															<Tooltip key={dateStr}>
-																<TooltipTrigger>
-																	<div
-																		className={`w-3 h-3 rounded-sm ${colorClass} cursor-pointer`}
-																	/>
-																</TooltipTrigger>
-																<TooltipContent>
-																	<p>
-																		{dateStr}: {problemCount}{' '}
-																		{problemCount === 1 ? 'problem' : 'problems'}
-																	</p>
-																</TooltipContent>
-															</Tooltip>
-														);
-													})}
-												</React.Fragment>
-											))}
-										</div>
-										{/* Month label below the grid */}
-										<div className='text-center text-xs md:text-sm text-muted-foreground mt-2'>
-											{new Date(year, month).toLocaleString('default', {
-												month: 'short',
-											})}
-										</div>
+													return (
+														<Tooltip key={dateStr}>
+															<TooltipTrigger>
+																<div
+																	className={`w-3 h-3 rounded-sm ${colorClass} cursor-pointer`}
+																/>
+															</TooltipTrigger>
+															<TooltipContent>
+																<p>
+																	{dateStr}: {problemCount}{' '}
+																	{problemCount === 1 ? 'problem' : 'problems'}
+																</p>
+															</TooltipContent>
+														</Tooltip>
+													);
+												})}
+											</React.Fragment>
+										))}
 									</div>
-								);
-							})}
-						</div>
+									{/* Month label below the grid */}
+									<div className='text-center text-xs md:text-sm text-muted-foreground mt-2'>
+										{new Date(year, month).toLocaleString('default', {
+											month: 'short',
+										})}
+									</div>
+								</div>
+							);
+						})}
 					</div>
 				</TooltipProvider>
 			</CardContent>

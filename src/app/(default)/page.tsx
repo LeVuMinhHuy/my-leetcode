@@ -25,15 +25,6 @@ export default async function Page({
 	//	.map((d) => new Date(d.date as string));
 
 	const { dates: dateStrings, year, streak, totalSolved, totalQuestions } = await getHabits();
-	// Convert date strings back to Date objects
-	//
-	console.log({
-		dateStrings,
-		year,
-		streak,
-		totalSolved,
-		totalQuestions,
-	});
 	const dates = dateStrings.map((dateStr) => new Date(dateStr));
 
 	return (

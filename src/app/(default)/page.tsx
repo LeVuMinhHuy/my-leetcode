@@ -3,7 +3,7 @@ import HabitBoard, { HabitBoardProps } from '@/components/custom/habit-board';
 async function getHabits(): Promise<HabitBoardProps> {
 	// Determine the base URL based on the environment
 	const isDev = process.env.NODE_ENV === 'development';
-	const apiUrl = isDev ? 'http://localhost:3000/api/habit' : 'https://tedcode.vercel.app/api/habit';
+	const apiUrl = isDev ? 'http://localhost:303/api/habit' : 'https://tedcode.vercel.app/api/habit';
 
 	const response = await fetch(apiUrl, { cache: 'no-store' });
 	if (!response.ok) {
@@ -24,13 +24,14 @@ export default async function Page({
 	//	.filter((d) => d.date && (d.status === Status.DONE || d.status === Status.WIP))
 	//	.map((d) => new Date(d.date as string));
 
-	const { dates: dateStrings, year } = await getHabits();
+	const { dates: dateStrings, year, streak, totalActiveDays } = await getHabits();
 	// Convert date strings back to Date objects
 	const dates = dateStrings.map((dateStr) => new Date(dateStr));
+	console.log({ streak, totalActiveDays });
 
 	return (
 		<div className='flex flex-col gap-8 w-full'>
-			<HabitBoard dates={dates} year={year} />
+			<HabitBoard dates={dates} year={year} streak={streak} totalActiveDays={totalActiveDays} />
 
 			{/*
 			<React.Suspense fallback={<Skeleton />}>

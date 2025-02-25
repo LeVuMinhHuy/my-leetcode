@@ -30,6 +30,8 @@ export async function GET() {
 		const submissionCalendar: { [key: string]: number } = JSON.parse(
 			data.data.matchedUser.userCalendar.submissionCalendar
 		);
+		const streak: number = data.data.matchedUser.userCalendar.streak || 0;
+		const totalActiveDays: number = data.data.matchedUser.userCalendar.totalActiveDays || 0;
 
 		const dates: Date[] = [];
 		Object.entries(submissionCalendar).forEach(([timestamp, problemCount]) => {
@@ -40,7 +42,7 @@ export async function GET() {
 			}
 		});
 
-		return NextResponse.json({ dates, year });
+		return NextResponse.json({ dates, year, streak, totalActiveDays });
 	} catch (error) {
 		console.error('Error fetching calendar data:', error);
 		return NextResponse.json({ error: 'Failed to fetch calendar data' }, { status: 500 });

@@ -5,6 +5,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 export interface HabitBoardProps {
 	dates: Date[];
 	year: number;
+	streak: number;
+	totalActiveDays: number;
 }
 
 const getProblemCountMap = (dates: Date[]): Map<string, number> => {
@@ -72,12 +74,16 @@ const getMonthWeeks = (month: number, year: number) => {
 };
 
 // HabitBoard component
-const HabitBoard: React.FC<HabitBoardProps> = ({ dates, year }) => {
+const HabitBoard: React.FC<HabitBoardProps> = ({ dates, year, streak, totalActiveDays }) => {
 	const problemCountMap = getProblemCountMap(dates);
 	const months = Array.from({ length: 12 }, (_, i) => i); // 0 = Jan, 11 = Dec
 
 	return (
 		<Card className='p-2 md:p-4 w-full overflow-x-auto border-none'>
+			<div className='flex gap-8 mb-8'>
+				<span className='text-orange-700 font-medium'>Streak: {streak} </span>
+				<span className='text-green-700 font-medium'>Total active date: {totalActiveDays}</span>
+			</div>
 			<CardContent className='p-0'>
 				<TooltipProvider>
 					{/* Container with horizontal scroll for mobile */}

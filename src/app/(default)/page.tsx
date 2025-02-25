@@ -1,30 +1,38 @@
-import HabitBoard from '@/components/custom/habit-board';
-import { columns } from './columns';
-import { DataTable } from './data-table';
-import { searchParamsCache } from './search-params';
-import { Skeleton } from './skeleton';
+import HabitBoard, { HabitBoardProps } from '@/components/custom/habit-board';
 
-import { Status } from '@/constants/problem-model';
-import { fetchProblem } from '@/services/fetchProblem';
-import { getFilterFields } from '@/services/getFilterFields';
-import * as React from 'react';
+async function getHabits(): Promise<HabitBoardProps> {
+	// Determine the base URL based on the environment
+	const isDev = process.env.NODE_ENV === 'development';
+	const apiUrl = isDev ? 'http://localhost:3000/api/habit' : '/api/habit';
+
+	const response = await fetch(apiUrl, { cache: 'no-store' });
+	if (!response.ok) {
+		throw new Error('Failed to fetch habits');
+	}
+	return response.json();
+}
 
 export default async function Page({
 	searchParams,
 }: {
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-	const search = searchParamsCache.parse(await searchParams);
-	const data = await fetchProblem();
-	const filterFields = getFilterFields(data);
-	const habits = data
-		.filter((d) => d.date && (d.status === Status.DONE || d.status === Status.WIP))
-		.map((d) => new Date(d.date as string));
+	//const search = searchParamsCache.parse(await searchParams);
+	//const data = await fetchProblem();
+	//const filterFields = getFilterFields(data);
+	//const habits = data
+	//	.filter((d) => d.date && (d.status === Status.DONE || d.status === Status.WIP))
+	//	.map((d) => new Date(d.date as string));
+
+	const { dates: dateStrings, year } = await getHabits();
+	// Convert date strings back to Date objects
+	const dates = dateStrings.map((dateStr) => new Date(dateStr));
 
 	return (
 		<div className='flex flex-col gap-8 w-full'>
-			<HabitBoard dates={habits} year={2025} />
+			<HabitBoard dates={dates} year={year} />
 
+			{/*
 			<React.Suspense fallback={<Skeleton />}>
 				<DataTable
 					columns={columns}
@@ -38,6 +46,7 @@ export default async function Page({
 						.filter(({ value }) => value ?? undefined)}
 				/>
 			</React.Suspense>
+      */}
 		</div>
 	);
 }

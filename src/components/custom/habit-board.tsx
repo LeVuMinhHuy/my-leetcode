@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
-interface HabitBoardProps {
+export interface HabitBoardProps {
 	dates: Date[];
 	year: number;
 }
